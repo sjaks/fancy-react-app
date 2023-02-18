@@ -1,7 +1,7 @@
 import { Image } from "antd";
 
 function FoxImage({ source }) {
-  return <Image width={965} src={source} placeholder={
+  return <Image width={400} src={source} placeholder={
     <div>Loading...</div>
   }/>;
 }
