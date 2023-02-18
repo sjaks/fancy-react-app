@@ -1,5 +1,6 @@
 import React from "react";
 import { Collapse } from "antd";
+import FoxImage from "./FoxImage";
 
 const { Panel } = Collapse;
 
@@ -10,7 +11,7 @@ function ElementCollapse({ elementObj }) {
 
   const elements = elementObj.map((el) => (
     <Panel header={el.title} key={el.id}>
-      <p>{el.body}</p>
+      <FoxImage source={el.url} />
     </Panel>
   ));
 

@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles/App.css";
+import QueryFoxes from "./service/query";
 import AddButton from "./components/AddButton";
 import ElementCollapse from "./components/ElementCollapse";
 
 function App() {
-  const [elements, setElements] = useState([
-    { id: 0, title: "Message 0", body: "Hello world!" },
-  ]);
+  const [elements, setElements] = useState([]);
   const [currentId, setCurrentId] = useState(1);
 
+  const newFox = () => {
+    QueryFoxes().then((data) => {
+      const imgUrl = data.image;
+      setElements([...elements,
+        {
+          title: "Fox " + currentId,
+          url: imgUrl,
+          id: currentId,
+        },
+      ]);
+      setCurrentId(currentId + 1);
+    });
+  }
+
+  useEffect(() => {
+    newFox();
+  }, []);
+
   const addElement = () => {
-    setCurrentId(currentId + 1);
-    setElements([
-      ...elements,
-      {
-        title: "Message " + currentId,
-        body: "Hey",
-        id: currentId,
-      },
-    ]);
+    newFox();
   };
 
   return (
     <div className="app">
-      <h1>Fancy React app</h1>
+      <h1>Random Foxes</h1>
       <AddButton onClick={addElement} />
       <ElementCollapse elementObj={elements} />
     </div>
